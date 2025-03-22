@@ -2,7 +2,7 @@ const monsters = [
     {
       name: 'Goblin',
       hp: 60,
-      atk: 8,
+      atk: 10,
       def: 3,
       exp: 20,
     },
