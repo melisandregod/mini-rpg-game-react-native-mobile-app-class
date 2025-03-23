@@ -68,7 +68,7 @@ export default function Home() {
       
       <View style={styles.container}>
         <LinearGradient
-          colors={['#4a4a4a', '#1a1a1a']}
+          colors={['rgba(40,40,40,0.5)', 'rgba(40,40,40,0.5)']}
           style={styles.glassContainer}
         >
           <Animated.View 
@@ -97,7 +97,7 @@ export default function Home() {
             onPress={() => router.push('/character-creation')}
           >
             <LinearGradient
-              colors={['#8e44ad', '#9b59b6']}
+              colors={['#50C878','#355E3B']}
               style={styles.buttonGradient}
             >
               <Text style={styles.buttonText}>
@@ -112,7 +112,7 @@ export default function Home() {
               onPress={() => router.push('/battle-ui-demo')}
             >
               <LinearGradient
-                colors={['#27ae60', '#2ecc71']}
+                colors={['#50C878','#355E3B']}
                 style={styles.buttonGradient}
               >
                 <Text style={styles.buttonText}>เริ่มการผจญภัย</Text>
@@ -167,9 +167,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleText: {
-    fontSize: 28,
+    fontFamily: '8bit',
+    fontSize: 29,
     fontWeight: 'bold',
-    color: '#f1c40f',
+    color: '#50C878',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
@@ -184,8 +185,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   playerInfoText: {
+    fontFamily: '8bitTH',
     color: '#ecf0f1',
-    fontSize: 18,
+    fontSize: 25,
     textAlign: 'center',
   },
   button: {
@@ -207,8 +209,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   buttonText: {
+    fontFamily: '8bitTH',
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 });

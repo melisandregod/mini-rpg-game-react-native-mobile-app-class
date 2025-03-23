@@ -2,11 +2,14 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react
 import { useRouter } from 'expo-router';
 import { useGame } from '../context/GameContext';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useEffect, useState } from 'react';
 
 export default function Result() {
-  const { battleResult, setBattleResult } = useGame();
+  const { battleResult, setBattleResult, setPlayer } = useGame();
   const router = useRouter();
+  const [isGameOver, setIsGameOver] = useState(false);
 
+  // ไม่มีข้อมูล
   if (!battleResult) {
     return (
       <View style={styles.centeredContainer}>
@@ -17,6 +20,36 @@ export default function Result() {
 
   const { outcome, gainedExp, monster, droppedItem } = battleResult;
 
+  // ถ้าแพ้ ให้แสดง Game Over แล้วกลับบ้าน
+  useEffect(() => {
+    if (outcome === 'lose') {
+      setIsGameOver(true);
+
+      setTimeout(() => {
+        setPlayer(null);         // ล้างตัวละคร
+        setBattleResult(null);   // ล้างผลการต่อสู้
+        router.replace('/');     // กลับหน้าแรก
+      }, 2000);
+    }
+  }, []);
+
+  // Game Over Screen
+  if (isGameOver) {
+    return (
+      <ImageBackground
+        source={require('../assets/backgrounds/forest.jpeg')}
+        style={styles.background}
+        blurRadius={3}
+      >
+        <View style={styles.overlay} />
+        <View style={styles.centeredContainer}>
+          <Text style={styles.gameOverText}>Game Over </Text>
+        </View>
+      </ImageBackground>
+    );
+  }
+
+  // กรณีชนะ
   const handleReturn = () => {
     setBattleResult(null);
     router.replace('/profile');
@@ -31,10 +64,7 @@ export default function Result() {
       <View style={styles.overlay} />
       <View style={styles.container}>
         <View style={styles.resultBox}>
-          <Text style={styles.title}>
-            {outcome === 'win' ? 'คุณชนะ' : 'คุณแพ้'}
-          </Text>
-
+          <Text style={styles.title}>🎉 คุณชนะ!</Text>
           <Text style={styles.detail}>ศัตรู: {monster.name}</Text>
           <Text style={styles.detail}>EXP ที่ได้รับ: {gainedExp}</Text>
 
@@ -42,8 +72,12 @@ export default function Result() {
             <View style={styles.dropBox}>
               <Text style={styles.dropTitle}>ดรอปไอเทม</Text>
               <Text style={styles.dropText}>ชื่อ: {droppedItem.name}</Text>
-              {droppedItem.target && <Text style={styles.dropText}>ประเภท: {droppedItem.target.toUpperCase()}</Text>}
-              {typeof droppedItem.value !== 'undefined' && <Text style={styles.dropText}>มูลค่า: {droppedItem.value}</Text>}
+              {droppedItem.target && (
+                <Text style={styles.dropText}>ประเภท: {droppedItem.target.toUpperCase()}</Text>
+              )}
+              {typeof droppedItem.value !== 'undefined' && (
+                <Text style={styles.dropText}>มูลค่า: {droppedItem.value}</Text>
+              )}
             </View>
           )}
 
@@ -129,5 +163,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gameOverText: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#e74c3c',
+    textAlign: 'center',
+    textShadowColor: 'black',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 10,
   },
 });

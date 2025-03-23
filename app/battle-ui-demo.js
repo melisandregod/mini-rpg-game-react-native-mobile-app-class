@@ -1,6 +1,6 @@
 // 🔄 นี่คือไฟล์หลักที่เรียกใช้ component & animation ที่แยกออกมาแล้ว
 import { useEffect, useState, useRef } from "react";
-import { View, Text, Animated, ImageBackground } from "react-native";
+import { View, Text, Animated, StyleSheet} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useGame } from "../context/GameContext";
@@ -46,7 +46,7 @@ export default function BattleScreen() {
   const [showItems, setShowItems] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
 
-  // 🧪 animations ที่จำเป็นจะถูกจัดการจากภายนอก (ส่ง ref เข้าไป)
+  // animations ที่จำเป็นจะถูกจัดการจากภายนอก (ส่ง ref เข้าไป)
   const animationRefs = useRef({
     playerAttackAnim: new Animated.Value(0),
     playerJumpAnim: new Animated.Value(0),
@@ -62,7 +62,20 @@ export default function BattleScreen() {
 
     playerIdleAnim: new Animated.Value(0),
     monsterIdleAnim: new Animated.Value(0),
+
+    screenFadeAnim: new Animated.Value(0),
   });
+
+  //fade ตอน เเพ้
+  const fadeOutScreen = (onComplete) => {
+    Animated.timing(animationRefs.current.screenFadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start(() => {
+      if (onComplete) onComplete();
+    });
+  };
 
   // 🎲 เริ่มต่อสู้
   useEffect(() => {
@@ -179,7 +192,9 @@ export default function BattleScreen() {
       setTimeout(() => router.replace("/result"), 2000);
     } else if (playerHP <= 0) {
       setBattleResult({ outcome: "lose", gainedExp: 0, monster });
-      setTimeout(() => router.replace("/result"), 2000);
+      fadeOutScreen(() => {
+        router.replace("/result");
+      });
     }
   }, [monsterHP, playerHP]);
 
@@ -256,6 +271,16 @@ export default function BattleScreen() {
           </View>
         )}
       </SafeAreaView>
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: "black",
+            opacity: animationRefs.current.screenFadeAnim,
+          },
+        ]}
+      />
     </View>
   );
 }
