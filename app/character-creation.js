@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  StyleSheet, 
-  ImageBackground, 
-  ScrollView, 
-  Image 
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  ScrollView,
+  Image,
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { useGame } from "../context/GameContext";
 import classes from "../data/classes";
@@ -45,33 +45,27 @@ export default function CharacterCreation() {
     const isSelected = selectedClass === className;
 
     return (
-      <TouchableOpacity 
-        style={[
-          styles.classCard, 
-          isSelected && styles.selectedClassCard
-        ]}
+      <TouchableOpacity
+        style={[styles.classCard, isSelected && styles.selectedClassCard]}
         onPress={() => setSelectedClass(className)}
       >
         <LinearGradient
-          colors={isSelected 
-            ? ['#4a4a4a', '#2c3e50'] 
-            : ['#34495e', '#2c3e50']
-          }
+          colors={isSelected ? ["#4a4a4a", "#2c3e50"] : ["#34495e", "#2c3e50"]}
           style={styles.cardGradient}
         >
           <View style={styles.classCardContent}>
             <View style={styles.classIconContainer}>
-              <Image 
-                source={classData.icon} 
-                style={styles.classIcon} 
+              <Image
+                source={classData.icon}
+                style={styles.classIcon}
                 resizeMode="contain"
               />
             </View>
             <View style={styles.classDetailsContainer}>
               <Text style={styles.className}>{className}</Text>
               <View style={styles.statContainer}>
-                <Text style={styles.statText}>❤️ HP: {classData.hp}</Text>
-                <Text style={styles.statText}>✨ MP: {classData.mp}</Text>
+                <Text style={styles.statText}>HP: {classData.hp}</Text>
+                <Text style={styles.statText}>MP: {classData.mp}</Text>
               </View>
               <Text style={styles.descriptionText}>
                 {classData.description}
@@ -85,15 +79,21 @@ export default function CharacterCreation() {
 
   return (
     <ImageBackground
-      source={require('../assets/backgrounds/forest.jpeg')}
+      source={require("../assets/backgrounds/menu.png")}
       style={styles.background}
       blurRadius={3}
     >
       <View style={styles.overlay} />
       <View style={styles.container}>
-        <Text style={styles.title}>🌟 เลือกอาชีพของคุณ 🌟</Text>
-        
-        <ScrollView 
+        <Text style={styles.title}>เลือกอาชีพของคุณ</Text>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
+          <Text style={styles.backText}>← กลับ</Text>
+        </TouchableOpacity>
+
+        <ScrollView
           contentContainerStyle={styles.scrollViewContent}
           showsVerticalScrollIndicator={false}
         >
@@ -102,25 +102,22 @@ export default function CharacterCreation() {
           ))}
         </ScrollView>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[
-            styles.confirmButton, 
-            !selectedClass && styles.disabledButton
+            styles.confirmButton,
+            !selectedClass && styles.disabledButton,
           ]}
           onPress={() => selectedClass && chooseClass(selectedClass)}
           disabled={!selectedClass}
         >
           <LinearGradient
-            colors={selectedClass 
-              ? ['#27ae60', '#2ecc71'] 
-              : ['#95a5a6', '#7f8c8d']
+            colors={
+              selectedClass ? ["#27ae60", "#2ecc71"] : ["#95a5a6", "#7f8c8d"]
             }
             style={styles.confirmButtonGradient}
           >
             <Text style={styles.confirmButtonText}>
-              {selectedClass 
-                ? `เลือก ${selectedClass}` 
-                : 'เลือกอาชีพก่อน'}
+              {selectedClass ? `เลือก ${selectedClass}` : "เลือกอาชีพก่อน"}
             </Text>
           </LinearGradient>
         </TouchableOpacity>
@@ -132,15 +129,15 @@ export default function CharacterCreation() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   overlay: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   container: {
     flex: 1,
@@ -149,12 +146,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#f1c40f',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#f1c40f",
+    textAlign: "center",
     marginBottom: 20,
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
   scrollViewContent: {
@@ -163,26 +160,26 @@ const styles = StyleSheet.create({
   classCard: {
     marginBottom: 15,
     borderRadius: 15,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   selectedClassCard: {
     borderWidth: 2,
-    borderColor: '#f1c40f',
+    borderColor: "#f1c40f",
   },
   cardGradient: {
     padding: 15,
   },
   classCardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   classIconContainer: {
     width: 100,
     height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 15,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: "rgba(255,255,255,0.2)",
     borderRadius: 10,
   },
   classIcon: {
@@ -194,42 +191,55 @@ const styles = StyleSheet.create({
   },
   className: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#ecf0f1',
+    fontWeight: "bold",
+    color: "#ecf0f1",
     marginBottom: 10,
   },
   statContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 10,
   },
   statText: {
-    color: '#bdc3c7',
+    color: "#bdc3c7",
     marginRight: 15,
     fontSize: 16,
   },
   descriptionText: {
-    color: '#95a5a6',
+    color: "#95a5a6",
     fontSize: 14,
   },
   confirmButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 30,
     left: 20,
     right: 20,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   disabledButton: {
     opacity: 0.6,
   },
   confirmButtonGradient: {
     padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   confirmButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+  backButton: {
+    position: "absolute",
+    top: 40,
+    left: 20,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    padding: 8,
+    borderRadius: 8,
+    zIndex: 10,
+  },
+  backText: {
+    color: "#fff",
+    fontSize: 16,
   },
 });

@@ -20,7 +20,7 @@ export default function Profile() {
   if (!player) {
     return (
       <ImageBackground
-        source={require('../assets/backgrounds/forest.jpeg')}
+        source={require('../assets/backgrounds/menu.png')}
         style={styles.backgroundContainer}
         blurRadius={3}
       >
@@ -45,10 +45,16 @@ export default function Profile() {
 
   return (
     <ImageBackground
-      source={require('../assets/backgrounds/forest.jpeg')}
+      source={require('../assets/backgrounds/menu.png')}
       style={styles.backgroundContainer}
       blurRadius={2}
     >
+     <TouchableOpacity
+              onPress={() => router.replace("/")}
+              style={styles.backButton}
+            >
+              <Text style={styles.backText}>← กลับ</Text>
+            </TouchableOpacity>
       <View style={styles.overlay} />
       <ScrollView 
         contentContainerStyle={styles.scrollContainer}
@@ -62,13 +68,13 @@ export default function Profile() {
             <View style={styles.characterHeader}>
               <View style={styles.characterIconContainer}>
                 <Image 
-                  source={require('../assets/adaptive-icon.png')} 
+                  source={require('../assets/characters/knight.png')} 
                   style={styles.characterIcon}
                   resizeMode="contain"
                 />
               </View>
               <View style={styles.characterInfo}>
-                <Text style={styles.characterName}>🧍‍♂️ {player.class}</Text>
+                <Text style={styles.characterName}>{player.class}</Text>
                 <Text style={styles.levelText}>Level {player.level}</Text>
               </View>
             </View>
@@ -307,5 +313,18 @@ const styles = StyleSheet.create({
     width: '80%',
     borderRadius: 10,
     overflow: 'hidden',
+  },
+  backButton: {
+    position: "absolute",
+    top: 40,
+    left: 20,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    padding: 8,
+    borderRadius: 8,
+    zIndex: 10,
+  },
+  backText: {
+    color: "#fff",
+    fontSize: 16,
   },
 });

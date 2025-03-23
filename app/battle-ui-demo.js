@@ -1,3 +1,4 @@
+// 🔄 นี่คือไฟล์หลักที่เรียกใช้ component & animation ที่แยกออกมาแล้ว
 import { useEffect, useState, useRef } from "react";
 import { View, Text, Animated, ImageBackground } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,18 +7,21 @@ import { useGame } from "../context/GameContext";
 import { levelUp } from "../utils/levelUp";
 import monsters from "../data/monsters";
 
-//ใช้งาน Component ที่แยกไว้
+//data
+import allItems from "../data/items";
+
+// 👉 ใช้งาน Component ที่แยกไว้
 import BattleLog from "../components/battle/BattleLog";
 import CharacterDisplay from "../components/battle/CharacterDisplay";
 import MonsterDisplay from "../components/battle/MonsterDisplay";
 import ActionMenu from "../components/battle/ActionMenu";
 import StatusBar from "../components/battle/StatusBar";
 
-//ใช้งานเมนูย่อย
+// 👉 ใช้งานเมนูย่อย
 import SkillMenu from "../components/battle/SkillMenu";
 import ItemMenu from "../components/battle/ItemMenu";
 
-//ใช้งาน animation และ utils
+// 👉 ใช้งาน animation และ utils
 import {
   animatePlayerAttack,
   animatePlayerSkill,
@@ -27,6 +31,7 @@ import {
   startIdleAnimations,
 } from "../animations/battleAnimations";
 import { calculateHPPercentage } from "../utils/battleUtils";
+import BattleBackground from "../components/battle/BattleBackground";
 
 export default function BattleScreen() {
   // 🧠 Context และ State
@@ -43,21 +48,21 @@ export default function BattleScreen() {
 
   // 🧪 animations ที่จำเป็นจะถูกจัดการจากภายนอก (ส่ง ref เข้าไป)
   const animationRefs = useRef({
-  playerAttackAnim: new Animated.Value(0),
-  playerJumpAnim: new Animated.Value(0),
-  playerRotateAnim: new Animated.Value(0),
-  playerScaleAnim: new Animated.Value(1),
-  playerFadeAnim: new Animated.Value(1),
+    playerAttackAnim: new Animated.Value(0),
+    playerJumpAnim: new Animated.Value(0),
+    playerRotateAnim: new Animated.Value(0),
+    playerScaleAnim: new Animated.Value(1),
+    playerFadeAnim: new Animated.Value(1),
 
-  monsterShakeAnim: new Animated.Value(0),
-  monsterJumpAnim: new Animated.Value(0),
-  monsterAttackAnim: new Animated.Value(0),
-  monsterScaleAnim: new Animated.Value(1),
-  monsterRotateAnim: new Animated.Value(0),
+    monsterShakeAnim: new Animated.Value(0),
+    monsterJumpAnim: new Animated.Value(0),
+    monsterAttackAnim: new Animated.Value(0),
+    monsterScaleAnim: new Animated.Value(1),
+    monsterRotateAnim: new Animated.Value(0),
 
-  playerIdleAnim: new Animated.Value(0),
-  monsterIdleAnim: new Animated.Value(0),
-});
+    playerIdleAnim: new Animated.Value(0),
+    monsterIdleAnim: new Animated.Value(0),
+  });
 
   // 🎲 เริ่มต่อสู้
   useEffect(() => {
@@ -77,7 +82,10 @@ export default function BattleScreen() {
     const dmg = Math.max(player.atk - monster.def, 1);
     setTimeout(() => {
       setMonsterHP((prev) => Math.max(prev - dmg, 0));
-      setBattleLog((prev) => [`${player.class} โจมตี! ทำดาเมจ ${dmg}`, ...prev]);
+      setBattleLog((prev) => [
+        `${player.class} โจมตี! ทำดาเมจ ${dmg}`,
+        ...prev,
+      ]);
       setTurn("monster");
     }, 600);
   };
@@ -88,11 +96,15 @@ export default function BattleScreen() {
       setBattleLog((prev) => ["MP ไม่พอสำหรับสกิลนี้!", ...prev]);
       return;
     }
+    setPlayer((prev) => ({ ...prev, mp: prev.mp - skill.mpCost }));
     animatePlayerSkill(animationRefs, skill, () => shakeMonster(animationRefs));
     setTimeout(() => {
       setMonsterHP((prev) => Math.max(prev - skill.power, 0));
-      setPlayer((prev) => ({ ...prev, mp: prev.mp - skill.mpCost }));
-      setBattleLog((prev) => [`${player.class} ใช้สกิล ${skill.name}!`, ...prev]);
+
+      setBattleLog((prev) => [
+        `${player.class} ใช้สกิล ${skill.name}!`,
+        ...prev,
+      ]);
       setTurn("monster");
     }, 1200);
     setShowSkills(false);
@@ -125,7 +137,10 @@ export default function BattleScreen() {
           const dmg = Math.max(monster.atk - player.def, 1);
           setPlayerHP((prev) => Math.max(prev - dmg, 0));
           setPlayer((prev) => ({ ...prev, hp: Math.max(prev.hp - dmg, 0) }));
-          setBattleLog((prev) => [`${monster.name} โจมตี! ทำดาเมจ ${dmg}`, ...prev]);
+          setBattleLog((prev) => [
+            `${monster.name} โจมตี! ทำดาเมจ ${dmg}`,
+            ...prev,
+          ]);
           setTurn("player");
         }, 600);
       }, 1000);
@@ -136,12 +151,31 @@ export default function BattleScreen() {
   useEffect(() => {
     if (!monster) return;
     if (monsterHP <= 0) {
+      // ดรอปไอเทมแบบสุ่ม
+      const dropName =
+        monster.itemDrops?.[
+          Math.floor(Math.random() * monster.itemDrops.length)
+        ];
+      const droppedItem = allItems.find((item) => item.name === dropName);
+
+      let updatedInventory = [...player.inventory];
+      let dropLog = null;
+
+      if (droppedItem) {
+        updatedInventory.push(droppedItem);
+        dropLog = `ได้รับไอเทม: ${droppedItem.name}`;
+      }
       const gainedExp = monster.exp;
       const newExp = player.exp + gainedExp;
-      let updatedPlayer = { ...player, exp: newExp % 100 };
+      let updatedPlayer = {
+        ...player,
+        exp: newExp % 100,
+        inventory: updatedInventory,
+      };
       if (newExp >= 100) updatedPlayer = levelUp(updatedPlayer);
       setPlayer(updatedPlayer);
-      setBattleResult({ outcome: "win", gainedExp, monster });
+      if (dropLog) setBattleLog((prev) => [dropLog, ...prev]);
+      setBattleResult({ outcome: "win", gainedExp, monster, droppedItem });
       setTimeout(() => router.replace("/result"), 2000);
     } else if (playerHP <= 0) {
       setBattleResult({ outcome: "lose", gainedExp: 0, monster });
@@ -152,11 +186,8 @@ export default function BattleScreen() {
   if (!monster) return <Text>กำลังโหลด...</Text>;
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <ImageBackground
-      source={require("../assets/backgrounds/forest.jpeg")}
-      style={{ flex: 1 }}
-    >
+    <View style={{ flex: 1, backgroundColor: "black" }}>
+      <BattleBackground />
       <SafeAreaView style={{ flex: 1, padding: 10 }}>
         <StatusBar
           player={player}
@@ -165,7 +196,15 @@ export default function BattleScreen() {
           monsterHP={monsterHP}
         />
 
-        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "flex-end", flex: 1, marginBottom: 20 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "flex-end",
+            flex: 1,
+            marginBottom: 20,
+          }}
+        >
           <CharacterDisplay player={player} animRefs={animationRefs} />
           <MonsterDisplay monster={monster} animRefs={animationRefs} />
         </View>
@@ -185,6 +224,10 @@ export default function BattleScreen() {
               onShowSkills={() => {
                 setShowSkills(true);
                 setShowItems(false);
+              }}
+              onRun={() => {
+                setBattleResult(null); // เคลียร์ผลการต่อสู้
+                router.replace("/profile"); // กลับหน้าโปรไฟล์
               }}
             />
 
@@ -212,8 +255,7 @@ export default function BattleScreen() {
             </Text>
           </View>
         )}
-            </SafeAreaView>
-      </ImageBackground>
+      </SafeAreaView>
     </View>
   );
 }

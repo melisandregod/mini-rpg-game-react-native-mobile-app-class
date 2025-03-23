@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Animated, Pl
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { useGame } from '../context/GameContext';
+import MenuBackground from '../components/MenuBackground';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
   const { player } = useGame();
@@ -52,11 +54,8 @@ export default function Home() {
   }, []);
 
   return (
-    <ImageBackground
-      source={require('../assets/backgrounds/forest.jpeg')}
-      style={styles.backgroundImage}
-      blurRadius={3}
-    >
+    <SafeAreaView style={{flex : 1}}>
+    <MenuBackground/>
       <Animated.View 
         style={[
           styles.overlay, 
@@ -82,14 +81,14 @@ export default function Home() {
               }
             ]}
           >
-            <Text style={styles.titleText}>🗡️ Mini RPG Chronicle 🛡️</Text>
+            <Text style={styles.titleText}>Mini RPG Chronicle</Text>
           </Animated.View>
 
           <View style={styles.playerInfoContainer}>
             <Text style={styles.playerInfoText}>
               {player 
-                ? `⚔️ ${player.name} - ${player.class}` 
-                : '🔮 ยังไม่มีตัวละคร'}
+                ? `${player.class}` 
+                : 'ยังไม่มีตัวละคร'}
             </Text>
           </View>
 
@@ -110,7 +109,7 @@ export default function Home() {
           {player && (
             <TouchableOpacity 
               style={styles.startButton}
-              onPress={() => router.push('/map')}
+              onPress={() => router.push('/battle-ui-demo')}
             >
               <LinearGradient
                 colors={['#27ae60', '#2ecc71']}
@@ -122,7 +121,7 @@ export default function Home() {
           )}
         </LinearGradient>
       </View>
-    </ImageBackground>
+      </SafeAreaView>
   );
 }
 

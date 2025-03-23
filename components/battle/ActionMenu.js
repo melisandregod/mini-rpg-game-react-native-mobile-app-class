@@ -1,28 +1,25 @@
 // components/battle/ActionMenu.js
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
-export default function ActionMenu({ onAttack, onShowSkills, onShowItems }) {
+export default function ActionMenu({ onAttack, onShowSkills, onShowItems , onRun}) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity style={styles.button} onPress={onAttack}>
-          <Text style={styles.text}>🗡️ โจมตี</Text>
+          <Text style={styles.text}>โจมตี</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={onShowSkills}>
-          <Text style={styles.text}>✨ สกิล</Text>
+          <Text style={styles.text}>สกิล</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.row}>
         <TouchableOpacity style={styles.button} onPress={onShowItems}>
-          <Text style={styles.text}>🧪 ไอเทม</Text>
+          <Text style={styles.text}>ไอเทม</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => alert("ไม่สามารถหนีได้!")}
-        >
+        <TouchableOpacity style={styles.button} onPress={onRun}>
           <Text style={styles.text}>🏃 หนี</Text>
         </TouchableOpacity>
       </View>
