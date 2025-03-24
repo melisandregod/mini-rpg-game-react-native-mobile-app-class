@@ -12,6 +12,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { router } from "expo-router";
 import { useGame } from "../context/GameContext";
 import { Dimensions } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
+import MenuBackground from "../components/MenuBackground";
 
 export default function Profile() {
   const { player } = useGame();
@@ -26,7 +28,7 @@ export default function Profile() {
       >
         <View style={styles.overlay} />
         <View style={styles.noCharacterContainer}>
-          <Text style={styles.warningText}>⚠️ ยังไม่มีตัวละคร</Text>
+          <Text style={styles.warningText}>ยังไม่มีตัวละคร</Text>
           <TouchableOpacity
             style={styles.returnButton}
             onPress={() => router.replace("/character-creation")}
@@ -44,16 +46,13 @@ export default function Profile() {
   }
 
   return (
-    <ImageBackground
-      source={require('../assets/backgrounds/menu.png')}
-      style={styles.backgroundContainer}
-      blurRadius={2}
-    >
+    <SafeAreaView style={{flex : 1}}>
+    <MenuBackground/>
      <TouchableOpacity
               onPress={() => router.replace("/")}
               style={styles.backButton}
             >
-              <Text style={styles.backText}>← กลับ</Text>
+              <Text style={styles.backText}>กลับ</Text>
             </TouchableOpacity>
       <View style={styles.overlay} />
       <ScrollView 
@@ -62,13 +61,13 @@ export default function Profile() {
       >
         <View style={styles.profileContainer}>
           <LinearGradient
-            colors={['#34495e', '#2c3e50']}
+            colors={['rgba(30, 30,30,0.8)', 'rgba(30, 30,30,0.8)']}
             style={styles.characterCard}
           >
             <View style={styles.characterHeader}>
               <View style={styles.characterIconContainer}>
                 <Image 
-                  source={require('../assets/characters/knight.png')} 
+                  source={player.icon} 
                   style={styles.characterIcon}
                   resizeMode="contain"
                 />
@@ -140,10 +139,10 @@ export default function Profile() {
 
           <TouchableOpacity 
             style={styles.battleButton}
-            onPress={() => router.push("/battle-ui-demo")}
+            onPress={() => router.push("/battle")}
           >
             <LinearGradient
-              colors={['#27ae60', '#2ecc71']}
+              colors={['#50C878','#355E3B']}
               style={styles.buttonGradient}
             >
               <Text style={styles.buttonText}>เริ่ม Battle!</Text>
@@ -151,7 +150,7 @@ export default function Profile() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </ImageBackground>
+      </SafeAreaView>
   );
 }
 
@@ -196,21 +195,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 20,
+    overflow: 'hidden'
   },
   characterIcon: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
   },
   characterInfo: {
     flex: 1,
   },
   characterName: {
-    fontSize: 24,
+    fontFamily: '8bitTH',
+    fontSize: 34,
     fontWeight: 'bold',
     color: '#ecf0f1',
   },
   levelText: {
-    fontSize: 18,
+    fontFamily: '8bitTH',
+    fontSize: 24,
     color: '#bdc3c7',
   },
   statContainer: {
@@ -222,15 +224,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   statLabel: {
+    fontFamily: '8bitTH',
     color: '#ecf0f1',
     marginRight: 10,
     width: 40,
+    fontSize: 19,
   },
   statValue: {
+    fontFamily: '8bitTH',
     color: '#bdc3c7',
     marginLeft: 10,
     width: 60,
     textAlign: 'right',
+    fontSize: 15,
   },
   expBarContainer: {
     flex: 1,
@@ -274,14 +280,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statBoxLabel: {
+    fontFamily: '8bitTH',
     color: '#bdc3c7',
-    fontSize: 14,
+    fontSize: 18,
     marginBottom: 5,
   },
   statBoxValue: {
+    fontFamily: '8bitTH',
     color: '#ecf0f1',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
   },
   battleButton: {
     width: '100%',
@@ -294,8 +301,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
+    fontFamily: '8bitTH',
     color: 'white',
-    fontSize: 18,
+    fontSize: 28,
     fontWeight: 'bold',
   },
   noCharacterContainer: {
@@ -316,7 +324,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
-    top: 40,
+    top: 70,
     left: 20,
     backgroundColor: "rgba(0,0,0,0.4)",
     padding: 8,
@@ -325,6 +333,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 20,
+    fontFamily: '8bitTH',
   },
 });

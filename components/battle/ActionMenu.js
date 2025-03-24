@@ -20,7 +20,7 @@ export default function ActionMenu({ onAttack, onShowSkills, onShowItems , onRun
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={onRun}>
-          <Text style={styles.text}>🏃 หนี</Text>
+          <Text style={styles.text}>หนี</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -39,18 +39,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "rgba(59, 59, 152, 0.8)",
+    backgroundColor: "rgba(80, 200, 120, 0.8)",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
     width: "48%",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#8080ff",
+    borderWidth: 2,
+    borderColor: "#023020",
   },
   text: {
+    fontFamily: '8bitTH',
     color: "white",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 20,
   },
 });

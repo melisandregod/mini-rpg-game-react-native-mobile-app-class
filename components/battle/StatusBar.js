@@ -41,9 +41,11 @@ const styles = StyleSheet.create({
     width: "48%",
   },
   name: {
+    fontFamily: "8bitTH",
     color: "white",
     fontWeight: "bold",
     marginBottom: 5,
+    fontSize: 18
   },
   barBox: {
     height: 18,
@@ -68,8 +70,9 @@ const styles = StyleSheet.create({
     top: 0,
   },
   barText: {
+    fontFamily: '8bitTH',
     color: "white",
-    fontSize: 12,
+    fontSize: 14,
     textAlign: "center",
     position: "absolute",
     width: "100%",

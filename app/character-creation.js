@@ -14,6 +14,8 @@ import { useGame } from "../context/GameContext";
 import classes from "../data/classes";
 import allSkills from "../data/skills";
 import allItems from "../data/items";
+import { SafeAreaView } from "react-native-safe-area-context";
+import MenuBackground from "../components/MenuBackground";
 
 export default function CharacterCreation() {
   const { setPlayer } = useGame();
@@ -50,7 +52,7 @@ export default function CharacterCreation() {
         onPress={() => setSelectedClass(className)}
       >
         <LinearGradient
-          colors={isSelected ? ["#4a4a4a", "#2c3e50"] : ["#34495e", "#2c3e50"]}
+          colors={isSelected ? ['rgba(40,40,40,0.5)', 'rgba(40,40,40,0.4)'] : ['rgba(30, 30,30,0.8)', 'rgba(30, 30,30,0.8)']}
           style={styles.cardGradient}
         >
           <View style={styles.classCardContent}>
@@ -78,11 +80,8 @@ export default function CharacterCreation() {
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/backgrounds/menu.png")}
-      style={styles.background}
-      blurRadius={3}
-    >
+    <SafeAreaView style = {{ flex : 1}}>
+    <MenuBackground/>
       <View style={styles.overlay} />
       <View style={styles.container}>
         <Text style={styles.title}>เลือกอาชีพของคุณ</Text>
@@ -90,7 +89,7 @@ export default function CharacterCreation() {
           onPress={() => router.back()}
           style={styles.backButton}
         >
-          <Text style={styles.backText}>← กลับ</Text>
+          <Text style={styles.backText}>กลับ</Text>
         </TouchableOpacity>
 
         <ScrollView
@@ -112,7 +111,7 @@ export default function CharacterCreation() {
         >
           <LinearGradient
             colors={
-              selectedClass ? ["#27ae60", "#2ecc71"] : ["#95a5a6", "#7f8c8d"]
+              selectedClass ? ['#50C878','#355E3B'] : ["#95a5a6", "#7f8c8d"]
             }
             style={styles.confirmButtonGradient}
           >
@@ -122,7 +121,7 @@ export default function CharacterCreation() {
           </LinearGradient>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </SafeAreaView>
   );
 }
 
@@ -145,9 +144,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    fontSize: 28,
+    fontFamily: '8bitTH',
+    fontSize: 38,
     fontWeight: "bold",
-    color: "#f1c40f",
+    color: "#50C878",
     textAlign: "center",
     marginBottom: 20,
     textShadowColor: "rgba(0, 0, 0, 0.75)",
@@ -161,10 +161,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 15,
     overflow: "hidden",
+    height: 150
   },
   selectedClassCard: {
     borderWidth: 2,
-    borderColor: "#f1c40f",
+    borderColor: "#50C878",
   },
   cardGradient: {
     padding: 15,
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
   classCardContent: {
     flexDirection: "row",
     alignItems: "center",
+    height: "100%"
   },
   classIconContainer: {
     width: 100,
@@ -181,16 +183,19 @@ const styles = StyleSheet.create({
     marginRight: 15,
     backgroundColor: "rgba(255,255,255,0.2)",
     borderRadius: 10,
+    overflow: 'hidden'
   },
   classIcon: {
     width: 80,
     height: 80,
+    resizeMode: 'contain'
   },
   classDetailsContainer: {
     flex: 1,
   },
   className: {
-    fontSize: 22,
+    fontFamily: '8bitTH',
+    fontSize: 30,
     fontWeight: "bold",
     color: "#ecf0f1",
     marginBottom: 10,
@@ -200,11 +205,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   statText: {
+    fontFamily: '8bitTH',
     color: "#bdc3c7",
     marginRight: 15,
-    fontSize: 16,
+    fontSize: 20,
   },
   descriptionText: {
+    fontFamily: '8bitTH',
     color: "#95a5a6",
     fontSize: 14,
   },
@@ -225,13 +232,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   confirmButtonText: {
+    fontFamily: '8bitTH',
     color: "white",
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: "bold",
   },
   backButton: {
     position: "absolute",
-    top: 40,
+    top: 5,
     left: 20,
     backgroundColor: "rgba(0,0,0,0.4)",
     padding: 8,
@@ -240,6 +248,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 20,
+    fontFamily: '8bitTH',
   },
 });

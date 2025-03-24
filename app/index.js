@@ -109,7 +109,7 @@ export default function Home() {
           {player && (
             <TouchableOpacity 
               style={styles.startButton}
-              onPress={() => router.push('/battle-ui-demo')}
+              onPress={() => router.push('/battle')}
             >
               <LinearGradient
                 colors={['#50C878','#355E3B']}

@@ -22,8 +22,9 @@ const styles = StyleSheet.create({
     height: 100,
   },
   text: {
+    fontFamily: '8bitTH',
     color: "white",
-    fontSize: 14,
+    fontSize: 17,
     marginBottom: 4,
   },
 });

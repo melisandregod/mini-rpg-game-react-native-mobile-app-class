@@ -34,28 +34,32 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     borderWidth: 1,
-    borderColor: "#8080ff",
+    borderColor: "#023020",
   },
   title: {
+    fontFamily: "8bitTH",
     color: "#ffcc00",
     fontWeight: "bold",
     marginBottom: 8,
+    fontSize: 18
   },
   item: {
-    backgroundColor: "rgba(59, 59, 152, 0.5)",
+    backgroundColor: "rgba(80, 200, 120, 0.8)",
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 4,
     marginBottom: 6,
     borderWidth: 1,
-    borderColor: "#6060aa",
+    borderColor: "#023020",
   },
   disabled: {
     backgroundColor: "rgba(80, 80, 80, 0.5)",
     borderColor: "#999",
   },
   text: {
+    fontFamily: "8bitTH",
     color: "white",
+    fontSize: 18,
   },
   cost: {
     color: "#aaf",
@@ -72,7 +76,9 @@ const styles = StyleSheet.create({
     borderColor: "#aa6060",
   },
   cancelText: {
+    fontFamily: "8bitTH",
     color: "white",
     fontWeight: "bold",
+    fontSize: 18,
   },
 });
