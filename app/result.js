@@ -64,7 +64,7 @@ export default function Result() {
       <View style={styles.overlay} />
       <View style={styles.container}>
         <View style={styles.resultBox}>
-          <Text style={styles.title}>🎉 คุณชนะ!</Text>
+          <Text style={styles.title}>คุณชนะ!</Text>
           <Text style={styles.detail}>ศัตรู: {monster.name}</Text>
           <Text style={styles.detail}>EXP ที่ได้รับ: {gainedExp}</Text>
 
@@ -83,7 +83,7 @@ export default function Result() {
 
           <TouchableOpacity style={styles.button} onPress={handleReturn}>
             <LinearGradient
-              colors={['#27ae60', '#2ecc71']}
+              colors={['#50C878','#355E3B']}
               style={styles.buttonGradient}
             >
               <Text style={styles.buttonText}>กลับไปหน้าโปรไฟล์</Text>
@@ -117,14 +117,16 @@ const styles = StyleSheet.create({
     maxWidth: 360,
   },
   title: {
-    fontSize: 26,
+    fontFamily: '8bitTH',
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#f1c40f',
     textAlign: 'center',
     marginBottom: 16,
   },
   detail: {
-    fontSize: 16,
+    fontFamily: '8bitTH',
+    fontSize: 20,
     color: '#ecf0f1',
     marginBottom: 6,
   },
@@ -135,14 +137,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.1)',
   },
   dropTitle: {
-    fontSize: 16,
+    fontFamily: '8bitTH',
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#2ecc71',
     marginBottom: 6,
   },
   dropText: {
+    fontFamily: '8bitTH',
     color: '#ecf0f1',
-    fontSize: 14,
+    fontSize: 18,
     marginBottom: 2,
   },
   button: {
@@ -155,9 +159,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
+    fontFamily: '8bitTH',
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 20,
   },
   centeredContainer: {
     flex: 1,
@@ -165,6 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gameOverText: {
+    fontFamily: '8bit',
     fontSize: 40,
     fontWeight: 'bold',
     color: '#e74c3c',

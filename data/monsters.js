@@ -1,8 +1,8 @@
 const monsters = [
   {
     name: "Goblin",
-    hp: 50,
-    atk: 10,
+    hp: 5000,
+    atk: 1000,
     def: 3,
     exp: 20,
     itemDrops: ['Potion', 'Ether']
