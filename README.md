@@ -97,8 +97,7 @@ npx expo start
 ## 👤 Developer Notes
 
 - Final project for Mobile Development class
-- Built to be completed in 2 days and easily extendable
-- Clean architecture with Expo Router and modular components
+
 
 ---
 
