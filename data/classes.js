@@ -18,7 +18,7 @@ const classes = {
   Assassin: {
     hp: 100,
     mp: 50,
-    atk: 220000,
+    atk: 20,
     def: 8,
     icon: require("../assets/characters/Assassin.png"),
     description: "มือสังหารโจมตีเร็วและแรง เหมาะกับการจบไว",
