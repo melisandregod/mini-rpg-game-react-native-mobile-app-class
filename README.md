@@ -1,9 +1,9 @@
-# 🧙 Mini Turn-Based RPG (React Native + Expo)
+#  Mini Turn-Based RPG (React Native + Expo)
 
 A pixel-style mobile RPG built with **React Native** and **Expo Router**. Choose a class, fight monsters in turn-based combat, cast skills, use items, and level up your hero!
 
 
-## 🔥 Features
+## Features
 
 - Choose your class: Knight, Mage, or Assassin
 - Stats system: HP, MP, ATK, DEF, EXP, Level, Skills
@@ -15,7 +15,7 @@ A pixel-style mobile RPG built with **React Native** and **Expo Router**. Choose
 
 ---
 
-## 🛠 Project Structure
+## Project Structure
 
 ```
 project-root/
@@ -53,7 +53,7 @@ project-root/
 
 ---
 
-## ⚙️ Getting Started
+## Getting Started
 
 ### 1. Install dependencies
 
@@ -69,7 +69,7 @@ npx expo start
 
 ---
 
-## 🧪 Gameplay Notes
+## Gameplay Notes
 
 - Create a character and start your first battle
 - Try using skills and items with MP/HP animations
@@ -77,16 +77,7 @@ npx expo start
 
 ---
 
-## 🚀 Future Enhancements
-
-- ✅ Firebase Auth + Firestore integration
-- ✅ Quests, storyline, and shops
-- ✅ Leaderboard or daily challenges
-- ✅ Multiplayer PvP or raid bosses
-
----
-
-## 📦 Assets
+## Assets
 
 - Fonts: `TA8bit.ttf`, `Daydream.ttf`
 - Static PNGs for characters, monsters, backgrounds
@@ -94,7 +85,7 @@ npx expo start
 
 ---
 
-## 👤 Developer Notes
+## Developer Notes
 
 - Final project for Mobile Development class
 
